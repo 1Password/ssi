@@ -97,7 +97,7 @@ serde = "1.0"
 serde_json = { version = "1.0", features = ["arbitrary_precision"] }
 serde_jcs = "0.1.0"
 ciborium = "0.2.2"
-bs58 = "0.4"
+bs58 = "0.5"
 base64 = "0.22"
 hex = "0.4.3"
 derivative = "2.2.0"
