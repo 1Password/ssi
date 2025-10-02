@@ -3,6 +3,8 @@ use core::fmt;
 use std::borrow::Cow;
 
 pub use ssi_eip712::Eip712TypesLoaderProvider;
+
+#[cfg(feature = "ld")]
 pub use ssi_json_ld::JsonLdLoaderProvider;
 
 #[derive(Debug, thiserror::Error, PartialEq)]

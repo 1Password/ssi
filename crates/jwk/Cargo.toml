@@ -54,7 +54,7 @@ ring = ["dep:ring"]
 bbs = ["ssi-bbs", "rand"]
 
 [dependencies]
-ssi-claims-core.workspace = true
+ssi-claims-core = { workspace = true, features = ["serde"] }
 num-bigint = "0.4"
 simple_asn1 = "^0.5.2"
 zeroize = { version = "1.5", features = ["zeroize_derive"] }

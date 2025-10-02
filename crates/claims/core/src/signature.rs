@@ -2,6 +2,8 @@ use core::fmt;
 
 use ssi_crypto::algorithm::{AlgorithmError, UnsupportedAlgorithm};
 use ssi_eip712::Eip712TypesLoaderProvider;
+
+#[cfg(feature = "ld")]
 use ssi_json_ld::JsonLdLoaderProvider;
 
 #[derive(Debug, thiserror::Error)]
@@ -159,6 +161,7 @@ impl Default for SignatureEnvironment {
     }
 }
 
+#[cfg(feature = "ld")]
 impl<JsonLdLoader, Eip712Loader> JsonLdLoaderProvider
     for SignatureEnvironment<JsonLdLoader, Eip712Loader>
 where

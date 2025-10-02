@@ -1,6 +1,8 @@
 use crate::{DateTimeProvider, ResolverProvider};
 use chrono::{DateTime, Utc};
 use ssi_eip712::Eip712TypesLoaderProvider;
+
+#[cfg(feature = "ld")]
 use ssi_json_ld::JsonLdLoaderProvider;
 
 /// Common verification parameters.
@@ -81,6 +83,7 @@ impl<R, L1, L2> ResolverProvider for VerificationParameters<R, L1, L2> {
     }
 }
 
+#[cfg(feature = "ld")]
 impl<R, L1: ssi_json_ld::Loader, L2> JsonLdLoaderProvider for VerificationParameters<R, L1, L2> {
     type Loader = L1;
 
