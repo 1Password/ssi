@@ -139,6 +139,12 @@ impl From<UnsupportedAlgorithm> for MessageSignatureError {
     }
 }
 
+#[cfg(feature = "ld")]
+type Loader = ssi_json_ld::ContextLoader;
+
+#[cfg(not(feature = "ld"))]
+type Loader = ();
+
 /// Signature environment.
 ///
 /// This is a common environment implementation expected to work with most
@@ -146,7 +152,7 @@ impl From<UnsupportedAlgorithm> for MessageSignatureError {
 ///
 /// It is possible to define a custom environment type, as long it implements
 /// the accessor traits required for signature.
-pub struct SignatureEnvironment<JsonLdLoader = ssi_json_ld::ContextLoader, Eip712Loader = ()> {
+pub struct SignatureEnvironment<JsonLdLoader = Loader, Eip712Loader = ()> {
     pub json_ld_loader: JsonLdLoader,
 
     pub eip712_loader: Eip712Loader,
@@ -155,7 +161,7 @@ pub struct SignatureEnvironment<JsonLdLoader = ssi_json_ld::ContextLoader, Eip71
 impl Default for SignatureEnvironment {
     fn default() -> Self {
         Self {
-            json_ld_loader: ssi_json_ld::ContextLoader::default(),
+            json_ld_loader: Loader::default(),
             eip712_loader: (),
         }
     }

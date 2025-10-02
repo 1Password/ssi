@@ -5,6 +5,12 @@ use ssi_eip712::Eip712TypesLoaderProvider;
 #[cfg(feature = "ld")]
 use ssi_json_ld::JsonLdLoaderProvider;
 
+#[cfg(feature = "ld")]
+type Loader = ssi_json_ld::ContextLoader;
+
+#[cfg(not(feature = "ld"))]
+type Loader = ();
+
 /// Common verification parameters.
 ///
 /// The [`VerifiableClaims::verify`] function expects a set of verification
@@ -23,7 +29,7 @@ use ssi_json_ld::JsonLdLoaderProvider;
 ///
 /// [`VerifiableClaims::verify`]: super::VerifiableClaims::verify
 #[derive(Debug, Default, Clone, Copy)]
-pub struct VerificationParameters<R, L1 = ssi_json_ld::ContextLoader, L2 = ()> {
+pub struct VerificationParameters<R, L1 = Loader, L2 = ()> {
     /// Public key resolver.
     pub resolver: R,
 
@@ -43,7 +49,7 @@ impl<R> VerificationParameters<R> {
     pub fn from_resolver(resolver: R) -> Self {
         Self {
             resolver,
-            json_ld_loader: ssi_json_ld::ContextLoader::default(),
+            json_ld_loader: Loader::default(),
             eip712_types_loader: (),
             date_time: None,
         }
